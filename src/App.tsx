@@ -1,121 +1,108 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { Asterisk, Binary, Braces, Clock, Fingerprint, KeyRound, Menu } from 'lucide-react'
+import Sidebar from './components/Sidebar'
+import JsonFormatter from './components/tools/JsonFormatter'
+import JwtDecoder from './components/tools/JwtDecoder'
+import Base64Tool from './components/tools/Base64Tool'
+import RegexTester from './components/tools/RegexTester'
+import UuidHashGenerator from './components/tools/UuidHashGenerator'
+import TimestampConverter from './components/tools/TimestampConverter'
+
+const TOOLS = [
+  {
+    id: 'json',
+    name: 'JSON Formatter',
+    description: 'JSON verisini doğrula, biçimlendir ve küçült',
+    icon: Braces,
+    component: JsonFormatter,
+  },
+  {
+    id: 'jwt',
+    name: 'JWT Decoder',
+    description: 'Tokenın header ve payload kısımlarını çözümle',
+    icon: KeyRound,
+    component: JwtDecoder,
+  },
+  {
+    id: 'base64',
+    name: 'Base64 Codec',
+    description: 'Metin ile Base64 arasında UTF-8 güvenli dönüşüm',
+    icon: Binary,
+    component: Base64Tool,
+  },
+  {
+    id: 'regex',
+    name: 'Regex Tester',
+    description: 'Desenleri canlı test et, eşleşmeleri ve grupları gör',
+    icon: Asterisk,
+    component: RegexTester,
+  },
+  {
+    id: 'uuid',
+    name: 'UUID & Hash',
+    description: 'v4 UUID üret; MD5, SHA-1 ve SHA-256 hesapla',
+    icon: Fingerprint,
+    component: UuidHashGenerator,
+  },
+  {
+    id: 'timestamp',
+    name: 'Unix Zaman',
+    description: 'Epoch damgaları ile tarih arasında çift yönlü dönüşüm',
+    icon: Clock,
+    component: TimestampConverter,
+  },
+]
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeId, setActiveId] = useState(TOOLS[0].id)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  const active = TOOLS.find((tool) => tool.id === activeId) ?? TOOLS[0]
+  const ActiveIcon = active.icon
+  const ActiveTool = active.component
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="flex h-screen overflow-hidden bg-zinc-950 text-zinc-100">
+      <Sidebar
+        tools={TOOLS}
+        activeId={activeId}
+        onSelect={(id: string) => {
+          setActiveId(id)
+          setSidebarOpen(false)
+        }}
+        open={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
 
-      <div className="ticks"></div>
+      <main className="flex min-w-0 flex-1 flex-col">
+        {/* Üst çubuk */}
+        <header className="flex items-center gap-3 border-b border-zinc-800/80 bg-zinc-950/80 px-4 py-3.5 backdrop-blur md:px-8">
+          <button
+            type="button"
+            onClick={() => setSidebarOpen(true)}
+            className="rounded-lg p-1.5 text-zinc-400 transition-colors hover:bg-zinc-900 hover:text-zinc-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 md:hidden"
+            aria-label="Kenar çubuğunu aç"
+          >
+            <Menu size={20} />
+          </button>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900 text-indigo-400">
+            <ActiveIcon size={16} />
+          </div>
+          <div className="min-w-0">
+            <h1 className="truncate text-sm font-semibold text-white">{active.name}</h1>
+            <p className="hidden truncate text-xs text-zinc-500 sm:block">{active.description}</p>
+          </div>
+        </header>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        {/* Araç içeriği */}
+        <div className="flex-1 overflow-y-auto p-4 md:p-8">
+          <div className="mx-auto max-w-6xl">
+            <ActiveTool />
+          </div>
+        </div>
+      </main>
+    </div>
   )
 }
 
