@@ -1,75 +1,46 @@
-# React + TypeScript + Vite
+# ⚡ DevVault — Client-Side Developer Utility Hub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+DevVault is a fast, modern, and privacy-first Swiss Army knife for developers. It packs essential day-to-day conversion, formatting, and debugging utilities into a single, clean web application.
 
-Currently, two official plugins are available:
+🚀 **Live Demo:** [https://gayeyy.github.io/devvault/](https://gayeyy.github.io/devvault/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **JSON Formatter & Validator:** Beautify, minify, and pinpoint syntax errors with instant clipboard copy.
+- **JWT Inspector:** Decode headers and payloads instantly without sending sensitive tokens to any third-party server.
+- **Base64 Codec:** Encode and decode text or binary payloads with full UTF-8 and padding support.
+- **Regex Tester & Visualizer:** Real-time regex pattern matching with color-coded visual highlights and capture group breakdown.
+- **UUID & Hash Generator:** Bulk RFC 4122 v4 UUID creation, plus client-side MD5, SHA-1, and SHA-256 hashing.
+- **Unix Timestamp Converter:** Bidirectional epoch time converter with millisecond/second auto-detection and relative human-readable diffs.
+- **100% Client-Side Privacy:** All cryptographic and parsing operations run strictly inside your browser. No data ever leaves your device.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Framework:** React 19
+- **Language:** TypeScript
+- **Build Tool:** Vite
+- **Styling:** Tailwind CSS
+- **Icons:** Lucide React
+- **CI/CD:** GitHub Actions & GitHub Pages
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 Local Development
 
-```
+```bash
+# Clone the repository
+git clone https://github.com/Gayeyy/devvault.git
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+# Enter project directory
+cd devvault
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+# Install dependencies
+npm install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+# Start local dev server
+npm run dev
 ```
