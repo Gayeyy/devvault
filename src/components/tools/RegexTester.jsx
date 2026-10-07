@@ -18,7 +18,7 @@ const TEMPLATES = [
 
 const SAMPLE_TEXT = `İletişim: ada.lovelace@example.com, destek@devvault.io
 Site: https://devvault.example.com/docs ve http://10.0.42.7/api
-Sunucular: 192.168.1.42, 8.8.8.8 — tarih 07.10.2026 / 2026-10-07
+192.168.1.42, 8.8.8.8 — tarih 07.10.2026 / 2026-10-07
 Renkler: #4f46e5, #10b981, #FFFFFF`;
 
 const MAX_LISTED_MATCHES = 100;
